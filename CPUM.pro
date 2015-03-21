@@ -11,7 +11,8 @@ SOURCES += src/imain.c \
 	src/inputSystem/instMemory/instMemory.c \
 	src/instruction/instruction/instruction.c \
 	src/outputSystem/outputSystem.c \
-	src/registerBank/registerBank.c
+	src/registerBank/registerBank.c \
+	src/cpuError.c
 
 HEADERS += src/cpu/alu.h \
 	src/cpu/control.h \
@@ -20,7 +21,8 @@ HEADERS += src/cpu/alu.h \
 	src/inputSystem/instMemory/instMemory.h \
 	src/instruction/instruction/instruction.h \
 	src/outputSystem/outputSystem.h \
-	src/registerBank/registerBank.h
+	src/registerBank/registerBank.h \
+	src/cpuError.h
 
 OTHER_FILES += Makefile \
 	README.md

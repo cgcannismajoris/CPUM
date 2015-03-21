@@ -18,7 +18,8 @@ INSTRUCTION_SRC		= src/instruction/instruction.c
 OUTPUTSYSTEM_SRC	= src/outputSystem/outputSystem.c
 INPUTSYSTEM_SRC		= src/inputSystem/inputSystem.c
 INSTMEMORY_SRC		= src/inputSystem/instMemory/instMemory.c
-REGISTERBANK_SRC		= src/registerBank/registerBank.c
+REGISTERBANK_SRC	= src/registerBank/registerBank.c
+CPUERROR_SRC		= src/cpuError.c
 
 
 # Arquivos-cabeçalho
@@ -31,6 +32,7 @@ OUTPUTSYSTEM_H		= src/outputSystem/outputSystem.h
 INPUTSYSTEM_H		= src/inputSystem/inputSystem.h
 INSTMEMORY_H		= src/inputSystem/instMemory/instMemory.h	
 REGISTERBANK_H		= src/registerBank/registerBank.h
+CPUERROR_H			= src/cpuError.h
 
 
 # Arquivos-objeto
@@ -42,7 +44,9 @@ INSTRUCTION_OBJ		= obj/instruction.o
 OUTPUTSYSTEM_OBJ	= obj/outputSystem.o
 INPUTSYSTEM_OBJ		= obj/inputSystem.o
 INSTMEMORY_OBJ		= obj/instMemory.o
-REGISTERBANK_OBJ		= obj/registerBank.o
+REGISTERBANK_OBJ	= obj/registerBank.o
+CPUERROR_OBJ		= obj/cpuError.o
+
 
 # Símbolos de arquivos de saída
 OUTPUT_NAME_EXEC		= CPUM
@@ -58,12 +62,12 @@ LFLAG			= -o
 #LIBFLAG 		=
 SRC				= $(IMAIN_SRC) $(CPU_SRC) $(ALU_SRC) $(CONTROL_SRC) \
 $(INSTRUCTION_SRC) $(OUTPUTSYSTEM_SRC) $(INPUTSYSTEM_SRC) $(INSTMEMORY_SRC) \
-$(REGISTERBANK_SRC)
+$(REGISTERBANK_SRC) $(CPUERROR_SRC)
 
 
 OBJ				= $(IMAIN_OBJ) $(CPU_OBJ) $(ALU_OBJ) $(CONTROL_OBJ) \
 $(INSTRUCTION_OBJ) $(OUTPUTSYSTEM_OBJ) $(INPUTSYSTEM_OBJ) $(INSTMEMORY_OBJ) \
-$(REGISTERBANK_OBJ)
+$(REGISTERBANK_OBJ) $(CPUERROR_OBJ)
 
 
 BIN				= $(OUTPUT_FULLPATH_EXEC)
@@ -97,6 +101,9 @@ $(INSTMEMORY_OBJ): $(INSTMEMORY_H) $(INSTMEMORY_SRC)
 
 $(REGISTERBANK_OBJ): $(REGISTERBANK_H) $(REGISTERBANK_SRC)
 	$(COMPILER) $(CFLAG) $(REGISTERBANK_SRC) $(LFLAG) $(REGISTERBANK_OBJ)
+
+$(CPUERROR_OBJ): $(CPUERROR_H) $(CPUERROR_SRC)
+	$(COMPILER) $(CFLAG) $(CPUERROR_SRC) $(LFLAG) $(CPUERROR_OBJ)
 
 $(BIN): $(OBJ)
 	$(COMPILER) $(LFLAG) $(BIN) $(OBJ)

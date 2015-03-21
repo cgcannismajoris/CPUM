@@ -19,17 +19,47 @@
 #include "registerBank.h"
 
 
-void registerBank_new(uint64_t length)
+REGISTERBANK *registerBank_new(uint64_t length)
 {
+    REGISTERBANK *regsBank;
 
+    if ((regsBank = (REGISTERBANK *)malloc(sizeof(REGISTERBANK))) == NULL)
+    {
+        cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
+        return REGISTERBANK_EALLOC;
+    }
+
+    if ((regsBank->registers = (uint32_t *)malloc(sizeof(uint32_t) * length))
+            == NULL)
+    {
+        free(regsBank);
+
+        cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
+        return REGISTERBANK_EALLOC;
+    }
+
+    regsBank->length = length;
+
+    return regsBank;
 }
 
-int getRegister(uint64_t address)
+void registerBank_free(REGISTERBANK *regsBank)
 {
-	return (-1);
+    free(regsBank->registers);
+    free(regsBank);
 }
 
-void setRegister(REGISTERBANK *reg, uint64_t address, int value)
+uint32_t registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address)
 {
+    if (address < regsBank->length)
+        return regsBank->registers[address];
 
+    return 0;
+}
+
+void registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
+                              uint32_t value)
+{
+    if (address < regsBank->length)
+        regsBank->registers[address] = value;
 }

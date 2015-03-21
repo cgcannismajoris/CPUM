@@ -21,20 +21,26 @@
 
 #include <stdint.h>
 
-#include "control.h"
-#include "alu.h"
+#include "../inputSystem/inputSystem.h"     /* incluir o TAD INPUTSYSTEM */
+#include "../registerBank/registerBank.h"   /* incluir o TAD REGISTERBANK */
+#include "control.h"                        /* incluir o módulo de controle */
+#include "alu.h"                            /* incluir o módulo de ALU. */
+
+#define CPU_EALLOC          NULL
+#define CPU_EALLOC_MSG      "Falha ao alocar memória para a CPU."
 
 
 typedef struct _cpu
 {
-	uint32_t ticksPerSecond;
+    uint32_t        ticksPerSecond;
+    REGISTERBANK *  regsBank;       /* banco de registradores */
 } CPU;
 
 
-CPU *cpu_new(uint64_t regQtd);
+CPU *   cpu_new(uint64_t regQtd);
 
-void cpu_start(CPU *cpu, const char *input, const char *output);
+void    cpu_start(CPU *cpu, const char *input, const char *output);
 
-void cpu_clock(CPU *cpu);
+void    cpu_clock(CPU *cpu);
 
 #endif

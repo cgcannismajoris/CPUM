@@ -16,13 +16,23 @@
  * =========================================================================
  */
 
-
+#include "cpuError.h"
 #include "cpu/cpu.h"
+#include "inputSystem/inputSystem.h"
+#include "instruction/instruction.h"
 
-int main(int argC, char **argV){
-	
-	printf("Olá! Eu sou inútil por enquanto... :(\n");	
 
-	return (0);
+int main(int argc, char **argv)
+{
+    if ((cpuError_new(CPUERROR_FAILUREDESCLENGTH)) == NULL)
+    {
+        fprintf(stderr, "%s\n", CPUERROR_EALLOC_MSG);
+        return EXIT_FAILURE;
+    }
+
+
+
+    cpuError_free();
+    return EXIT_SUCCESS;
 }
 

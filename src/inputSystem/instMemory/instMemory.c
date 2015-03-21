@@ -19,17 +19,38 @@
 #include "instMemory.h"
 
 
-INSTMEMORY *instMemory_new(uint32_t *mem, uint64_t length)
+INSTMEMORY *instMemory_new(uint64_t length)
 {
+    INSTMEMORY *novo;
 
+    if ((novo = (INSTMEMORY *)malloc(sizeof(INSTMEMORY))) == NULL)
+    {
+        cpuError_setDesc(INSTMEMORY_EALLOC_MSG);
+        return INSTMEMORY_EALLOC;
+    }
+
+    if ((novo->mem = (uint32_t *)malloc(sizeof(uint32_t) * length)) == NULL)
+    {
+        free(novo);
+        cpuError_setDesc(INSTMEMORY_EALLOC_MSG);
+        return INSTMEMORY_EALLOC;
+    }
+
+    novo->length = length;
+
+    return novo;
 }
 
-void instMemory_free(INSTMEMORY *mem)
+void instMemory_free(INSTMEMORY *instMem)
 {
-
+    free(instMem->mem);
+    free(instMem);
 }
 
-uint32_t instMemory_get(uint64_t address)
+uint32_t instMemory_get(INSTMEMORY *instMem, uint64_t address)
 {
+    if (address < instMem->length)
+        return instMem->mem[address];
 
+    return 0;
 }

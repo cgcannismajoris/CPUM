@@ -20,22 +20,33 @@
 #ifndef REGISTERBANK_H
 #define REGISTERBANK_H
 
-
 #include <stdint.h>
+#include <stdlib.h>
+
+#include "../cpuError.h"
 
 
-#define REGISTER_MAX 		32
+#define REGISTERBANK_MAX            32
+
+#define REGISTERBANK_EALLOC         NULL
+#define REGISTERBANK_EALLOC_MSG     "Falha ao alocar memória para o banco de registradores."
+
 
 typedef struct _registerBank
 {
-	int *registers;
-	uint64_t length;
+    uint32_t *  registers;
+    uint64_t    length;
 } REGISTERBANK;
 
-void registerBank_new(uint64_t length);
 
-int getRegister(uint64_t address);
+REGISTERBANK *  registerBank_new(uint64_t length);
 
-void setRegister(REGISTERBANK *reg, uint64_t address, int value);
+void            registerBank_free(REGISTERBANK *regsBank);
+
+uint32_t        registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address);
+
+void            registerBank_setRegister(REGISTERBANK *regsBank,
+                                         uint64_t address,
+                                         uint32_t value);
 
 #endif

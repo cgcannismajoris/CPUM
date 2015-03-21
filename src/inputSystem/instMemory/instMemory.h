@@ -17,22 +17,29 @@
  * ===========================================================================
  */
 
-#ifndef DATAMEMORY_H
-#define DATAMEMORY_H
+#ifndef INSTMEMORY_H
+#define INSTMEMORY_H
 
 #include <stdint.h>
+#include <stdlib.h>
+
+#include "../../cpuError.h"
+
+#define INSTMEMORY_EALLOC       NULL
+#define INSTMEMORY_EALLOC_MSG   "Falha ao criar memória de instruções."
+
 
 typedef struct _instMemory
 {
-	uint32_t *mem;
-	uint64_t length;
+    uint32_t *  mem;
+    uint64_t    length;
 } INSTMEMORY;
 
 
-INSTMEMORY *instMemory_new(uint32_t *mem, uint64_t length);
+INSTMEMORY *    instMemory_new(uint64_t length);
 
-void instMemory_free(INSTMEMORY *mem);
+void            instMemory_free(INSTMEMORY *instMem);
 
-uint32_t instMemory_get(uint64_t address);
+uint32_t        instMemory_get(INSTMEMORY *instMem, uint64_t address);
 
-#endif
+#endif /* INSTMEMORY_H */
