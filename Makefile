@@ -18,7 +18,7 @@ INSTRUCTION_SRC		= src/instruction/instruction.c
 OUTPUTSYSTEM_SRC	= src/outputSystem/outputSystem.c
 INPUTSYSTEM_SRC		= src/inputSystem/inputSystem.c
 INSTMEMORY_SRC		= src/inputSystem/instMemory/instMemory.c
-REGISTERBAK_SRC		= src/registerBank/registerBank.c
+REGISTERBANK_SRC		= src/registerBank/registerBank.c
 
 
 # Arquivos-cabeçalho
@@ -30,7 +30,7 @@ INSTRUCTION_H		= src/instruction/instruction.h
 OUTPUTSYSTEM_H		= src/outputSystem/outputSystem.h
 INPUTSYSTEM_H		= src/inputSystem/inputSystem.h
 INSTMEMORY_H		= src/inputSystem/instMemory/instMemory.h	
-REGISTERBAK_H		= src/registerBank/registerBank.h
+REGISTERBANK_H		= src/registerBank/registerBank.h
 
 
 # Arquivos-objeto
@@ -42,7 +42,7 @@ INSTRUCTION_OBJ		= obj/instruction.o
 OUTPUTSYSTEM_OBJ	= obj/outputSystem.o
 INPUTSYSTEM_OBJ		= obj/inputSystem.o
 INSTMEMORY_OBJ		= obj/instMemory.o
-REGISTERBAK_OBJ		= obj/registerBank.o
+REGISTERBANK_OBJ		= obj/registerBank.o
 
 # Símbolos de arquivos de saída
 OUTPUT_NAME_EXEC		= CPUM
@@ -58,12 +58,12 @@ LFLAG			= -o
 #LIBFLAG 		=
 SRC				= $(IMAIN_SRC) $(CPU_SRC) $(ALU_SRC) $(CONTROL_SRC) \
 $(INSTRUCTION_SRC) $(OUTPUTSYSTEM_SRC) $(INPUTSYSTEM_SRC) $(INSTMEMORY_SRC) \
-$(REGISTERBAK_SRC)
+$(REGISTERBANK_SRC)
 
 
 OBJ				= $(IMAIN_OBJ) $(CPU_OBJ) $(ALU_OBJ) $(CONTROL_OBJ) \
 $(INSTRUCTION_OBJ) $(OUTPUTSYSTEM_OBJ) $(INPUTSYSTEM_OBJ) $(INSTMEMORY_OBJ) \
-$(REGISTERBAK_OBJ)
+$(REGISTERBANK_OBJ)
 
 
 BIN				= $(OUTPUT_FULLPATH_EXEC)
@@ -95,8 +95,8 @@ $(INPUTSYSTEM_OBJ): $(INPUTSYSTEM_H) $(INPUTSYSTEM_SRC)
 $(INSTMEMORY_OBJ): $(INSTMEMORY_H) $(INSTMEMORY_SRC)
 	$(COMPILER) $(CFLAG) $(INSTMEMORY_SRC) $(LFLAG) $(INSTMEMORY_OBJ)
 
-$(REGISTERBAK_OBJ): $(REGISTERBAK_H) $(REGISTERBAK_SRC)
-	$(COMPILER) $(CFLAG) $(REGISTERBAK_SRC) $(LFLAG) $(REGISTERBAK_OBJ)
+$(REGISTERBANK_OBJ): $(REGISTERBANK_H) $(REGISTERBANK_SRC)
+	$(COMPILER) $(CFLAG) $(REGISTERBANK_SRC) $(LFLAG) $(REGISTERBANK_OBJ)
 
 $(BIN): $(OBJ)
 	$(COMPILER) $(LFLAG) $(BIN) $(OBJ)
@@ -112,4 +112,4 @@ mk_dir:
 
 clean:
 	rm -f $(OUTPUT_FULLPATH_EXEC) $(LN_SYMBOL) *~ *.swp *.swo \
-	$(OBJ) $(TOOL_DICWRITER_OBJ)
+	$(OBJ)
