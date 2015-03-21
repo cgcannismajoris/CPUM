@@ -18,7 +18,7 @@
 
 #include "cpu.h"
 
-CPU *cpu_new(uint64_t regQtd)
+CPU *cpu_new(uint64_t regQtd, uint32_t ticks)
 {
     CPU *nova;
 
@@ -36,16 +36,54 @@ CPU *cpu_new(uint64_t regQtd)
         cpuError_setDesc(CPUERROR_EALLOC_MSG);
         return CPU_EALLOC;
     }
+	
+	nova->ticksPerSecond = ticks;
 
     return nova;
 }
 
-void cpu_start(CPU *cpu, const char *input, const char *output)
+void cpu_free(CPU *cpu)
 {
-
+	registerBank_free(cpu->regsBank);
+	free(cpu);
 }
 
-void cpu_clock(CPU *cpu)
+void cpu_start(CPU *cpu, const char *input, const char *output)
 {
+	
+	if((cpu->input = input_new()) == INPUTSYSTEM_EALLOC)
+		return;
 
+	if((cpu->output = output_new(output)) == OUTPUTSYSTEM_EALLOC)
+		return;
+
+	input_load(cpu->input, input);	
+
+	while(cpu_clock(cpu) == CPU_FINISH)
+	{
+		output_writeTrace(cpu->output, cpu->regsBank);
+		usleep(500000);
+		printf("clock\n");
+		getchar();
+	}
+
+	input_free(cpu->input);
+	output_free(cpu->output);
+}
+
+int cpu_clock(CPU *cpu)
+{
+	uint32_t inst;
+	
+	if((inst = input_getInst(cpu->input, registerBank_getPc(cpu->regsBank))) == 0)
+	{
+		return (CPU_END);
+	}
+
+	if(control_process(cpu->regsBank, inst) == CONTROL_EUKNOWINSTRUCTION)
+	{
+		return (CPU_ERROR);
+	}
+
+	return (CPU_FINISH);
 }

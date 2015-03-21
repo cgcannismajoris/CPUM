@@ -39,6 +39,8 @@ void alu_processTypeR(REGISTERBANK *regBank, TYPE_R *inst)
 			registerBank_setRegister(regBank, inst->dest, tmpResult);
 			break;
 	}
+
+	registerBank_pcAdd(regBank, inst->address);
 }
 
 void alu_processBeqz(REGISTERBANK *regBank, TYPE_ESP_BEQZ *inst)
@@ -51,4 +53,5 @@ void alu_processBeqz(REGISTERBANK *regBank, TYPE_ESP_BEQZ *inst)
 	{
 		registerBank_pcAdd(regBank, inst->address_f);
 	}
+
 }

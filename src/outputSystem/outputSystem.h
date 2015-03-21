@@ -41,6 +41,5 @@ OUTPUTSYSTEM *		output_new(const char *filename);
 
 void 				output_free(OUTPUTSYSTEM *output);
 
-void 				output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem, 
-										uint64_t pc);
+void 				output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem);
 #endif

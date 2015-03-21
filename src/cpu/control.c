@@ -24,9 +24,9 @@ int control_process(REGISTERBANK  *regBank, uint32_t inst)
 	TYPE_R tmp;
 
 	INSTRUCTION_SETINST(tmp, inst);
-	
+
 	//Se for uma instrução do tipo R.
-	if(tmp.opcode > 1 && tmp.opcode < 22)
+	if(tmp.opcode >= 1 && tmp.opcode <= 22)
 	{
 		alu_processTypeR(regBank, &tmp);
 	}

@@ -43,16 +43,16 @@ void output_free(OUTPUTSYSTEM *output)
 	free(output);
 }
 
-void output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem, uint64_t pc)
+void output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem)
 {
 	uint64_t i;
-
-	fprintf(output->file, "(%li", pc);
+	
+	fprintf(output->file, "(%li, (", registerBank_getPc(regMem) + 1);
 
 	for(i = 0; i < registerBank_getLength(regMem) - 1; i++)
 		fprintf(output->file, "%i, ", registerBank_getRegister(regMem, i));
 	
 	fprintf(output->file, "%i", registerBank_getRegister(regMem, i));
 
-	fprintf(output->file, ")\n");
+	fprintf(output->file, "))\n");
 }

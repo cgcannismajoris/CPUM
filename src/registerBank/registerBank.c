@@ -69,9 +69,14 @@ void registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
         regsBank->registers[address] = value;
 }
 
-void registerBank_pcAdd(REGISTERBANK *regsBank, uint16_t value)
+void registerBank_pcAdd(REGISTERBANK *regsBank, short int value)
 {
 	regsBank->pc += value;
+}
+
+uint64_t registerBank_getPc(REGISTERBANK *regsBank)
+{
+	return regsBank->pc;
 }
 
 uint64_t registerBank_getLength(REGISTERBANK *regsBank)

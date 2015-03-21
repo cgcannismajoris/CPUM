@@ -43,6 +43,7 @@ void input_free(INPUTSYSTEM *input)
 
 uint32_t input_getInst(INPUTSYSTEM *input, uint64_t address)
 {
+	
     if (address < input->mem->length)
         return input->mem->mem[address];
 

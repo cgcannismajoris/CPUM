@@ -35,14 +35,14 @@
 typedef struct _registerBank
 {
 	//Registradores de propósito geral
-    uint32_t *  registers;
+    uint32_t *  	registers;
 
 	//Registradores de propósito específico
-	const uint32_t zero;
-   	const uint32_t um;
-   	uint32_t pc;
+	const uint32_t 	zero;
+   	const uint32_t 	um;
+   	uint64_t 		pc;
 
-    uint64_t    length;
+    uint64_t    	length;
 } REGISTERBANK;
 
 
@@ -56,7 +56,9 @@ void            registerBank_setRegister(REGISTERBANK *regsBank,
                                          uint64_t address,
                                          uint32_t value);
 
-void 			registerBank_pcAdd(REGISTERBANK *regsBank, uint16_t value);
+void 			registerBank_pcAdd(REGISTERBANK *regsBank, short int value);
+
+uint64_t		registerBank_getPc(REGISTERBANK *regsBank);
 
 uint64_t		registerBank_getLength(REGISTERBANK *regsBank);
 #endif
