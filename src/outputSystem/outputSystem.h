@@ -21,7 +21,14 @@
 #define OUTPUTSYSTEM_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
+
+#include "../cpuError.h"
+#include "../registerBank/registerBank.h"
+
+#define OUTPUTSYSTEM_EALLOC		NULL
+#define OUTPUTSYSTEM_EALLOC_MSG	"Falha de alocação de memória para OUTPUTSYSTEM."
 
 
 typedef struct _outputSystem
@@ -30,10 +37,10 @@ typedef struct _outputSystem
 } OUTPUTSYSTEM;
 
 
-OUTPUTSYSTEM *		output_new();
+OUTPUTSYSTEM *		output_new(const char *filename);
 
 void 				output_free(OUTPUTSYSTEM *output);
 
-void 				output_writeTrace(OUTPUTSYSTEM *output, uint32_t *regMem, uint64_t pc);
-
+void 				output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem, 
+										uint64_t pc);
 #endif

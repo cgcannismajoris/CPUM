@@ -22,6 +22,9 @@
 #include "../instruction/instruction.h"
 #include "alu.h"
 
-void control_process(uint32_t inst);
+#define CONTROL_EUKNOWINSTRUCTION		-1
+#define CONTROL_EUKNOWINSTRUCTION_MSG 	"Instrução não reconhecida."
+
+int control_process(REGISTERBANK *regBank, uint32_t inst);
 
 #endif

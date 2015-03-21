@@ -40,6 +40,11 @@ REGISTERBANK *registerBank_new(uint64_t length)
 
     regsBank->length = length;
 
+	*((uint32_t*)&regsBank->zero) = 0;
+	*((uint32_t*)&regsBank->um) = 1;
+
+	regsBank->pc = 0;
+
     return regsBank;
 }
 
@@ -62,4 +67,14 @@ void registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
 {
     if (address < regsBank->length)
         regsBank->registers[address] = value;
+}
+
+void registerBank_pcAdd(REGISTERBANK *regsBank, uint16_t value)
+{
+	regsBank->pc += value;
+}
+
+uint64_t registerBank_getLength(REGISTERBANK *regsBank)
+{
+	return (regsBank->length);
 }

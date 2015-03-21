@@ -20,8 +20,9 @@
 #define ALU_H
 
 #include "../instruction/instruction.h"
+#include "../registerBank/registerBank.h"
 
-void alu_process(INSTRUCTION *inst);
-
+void alu_processTypeR(REGISTERBANK *regBank, TYPE_R *inst);
+void alu_processBeqz(REGISTERBANK *regBank, TYPE_ESP_BEQZ *inst);
 
 #endif

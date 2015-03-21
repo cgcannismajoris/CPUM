@@ -18,7 +18,35 @@
 
 #include "control.h"
 
-void control_process(uint32_t inst)
+int control_process(REGISTERBANK  *regBank, uint32_t inst)
 {
+ 
+	TYPE_R tmp;
+
+	INSTRUCTION_SETINST(tmp, inst);
 	
+	//Se for uma instrução do tipo R.
+	if(tmp.opcode > 1 && tmp.opcode < 22)
+	{
+		alu_processTypeR(regBank, &tmp);
+	}
+
+	//Caso forem acrescentadas novas instruções futuras adicionar trechos de
+	//decodificação aqui.
+
+	//Se for uma instrução especial beqz
+	else if(tmp.opcode == 56)
+	{
+		TYPE_ESP_BEQZ beqz;
+		
+		INSTRUCTION_SETINST(beqz, inst);
+
+		alu_processBeqz(regBank, &beqz);
+	}
+	
+	//Tipo não reconhecido.
+	else{
+		cpuError_setDesc(CONTROL_EUKNOWINSTRUCTION_MSG);
+		return CONTROL_EUKNOWINSTRUCTION;
+	}
 }

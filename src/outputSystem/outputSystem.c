@@ -18,17 +18,41 @@
 
 #include "outputSystem.h"
 
-OUTPUTSYSTEM *output_new()
+OUTPUTSYSTEM *output_new(const char *filename)
 {
+	OUTPUTSYSTEM *novo;
 
+	if((novo = (OUTPUTSYSTEM*)malloc(sizeof(OUTPUTSYSTEM))) == NULL)
+	{
+		cpuError_setDesc(OUTPUTSYSTEM_EALLOC_MSG);
+		return OUTPUTSYSTEM_EALLOC;
+	}
+
+	if((novo->file = fopen(filename, "w+")) == NULL)
+	{
+		cpuError_setDesc(OUTPUTSYSTEM_EALLOC_MSG);
+		return OUTPUTSYSTEM_EALLOC;
+	}
+
+	return (novo);
 }
 
 void output_free(OUTPUTSYSTEM *output)
 {
-
+	fclose(output->file);
+	free(output);
 }
 
-void output_writeTrace(OUTPUTSYSTEM *output, uint32_t *regMem, uint64_t pc)
+void output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem, uint64_t pc)
 {
+	uint64_t i;
 
+	fprintf(output->file, "(%li", pc);
+
+	for(i = 0; i < registerBank_getLength(regMem) - 1; i++)
+		fprintf(output->file, "%i, ", registerBank_getRegister(regMem, i));
+	
+	fprintf(output->file, "%i", registerBank_getRegister(regMem, i));
+
+	fprintf(output->file, ")\n");
 }
