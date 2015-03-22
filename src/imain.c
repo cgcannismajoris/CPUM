@@ -49,10 +49,14 @@ int main(int argc, char **argv)
 
 	cpu_start(cpu, argv[1], argv[2]);
 
-	if(cpuError_getDesc() != NULL)
+	if(strlen(cpuError_getDesc()) > 0)
 	{
 		fprintf(stderr, "CPU: %s\n", cpuError_getDesc());
 		return EXIT_FAILURE;
+	}
+	else
+	{
+		printf("Programa executado com sucesso! =D\n");
 	}
 
 	cpu_free(cpu);

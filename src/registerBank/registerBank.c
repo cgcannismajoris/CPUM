@@ -38,8 +38,10 @@ REGISTERBANK *registerBank_new(uint64_t length)
         return REGISTERBANK_EALLOC;
     }
 
-    regsBank->length = length;
+	memset(regsBank->registers, 0, sizeof(uint32_t) * length);
 
+    regsBank->length = length;
+	
 	*((uint32_t*)&regsBank->zero) = 0;
 	*((uint32_t*)&regsBank->um) = 1;
 

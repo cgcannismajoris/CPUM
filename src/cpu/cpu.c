@@ -62,9 +62,6 @@ void cpu_start(CPU *cpu, const char *input, const char *output)
 	while(cpu_clock(cpu) == CPU_FINISH)
 	{
 		output_writeTrace(cpu->output, cpu->regsBank);
-		usleep(500000);
-		printf("clock\n");
-		getchar();
 	}
 
 	input_free(cpu->input);
