@@ -21,7 +21,6 @@
 #include "inputSystem/inputSystem.h"
 #include "instruction/instruction.h"
 
-
 #define QTD_REG 	32
 
 int main(int argc, char **argv)
@@ -47,9 +46,7 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-	cpu_start(cpu, argv[1], argv[2]);
-
-	if(strlen(cpuError_getDesc()) > 0)
+	if(cpu_start(cpu, argv[1], argv[2]) == CPU_ERROR)
 	{
 		fprintf(stderr, "CPU: %s\n", cpuError_getDesc());
 		return EXIT_FAILURE;
@@ -61,6 +58,6 @@ int main(int argc, char **argv)
 
 	cpu_free(cpu);
     cpuError_free();
-    return EXIT_SUCCESS;
-}
 
+	return EXIT_SUCCESS;
+}

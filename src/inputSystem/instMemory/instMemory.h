@@ -20,13 +20,13 @@
 #ifndef INSTMEMORY_H
 #define INSTMEMORY_H
 
-#include <stdint.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "../../cpuError.h"
 
-#define INSTMEMORY_EALLOC       NULL
-#define INSTMEMORY_EALLOC_MSG   "Falha ao criar memória de instruções."
+#define INSTMEMORY_EALLOC        NULL
+#define INSTMEMORY_EALLOC_MSG    "Falha ao criar memória de instruções."
 
 
 typedef struct _instMemory

@@ -24,7 +24,14 @@ INSTRUCTION *inst_new(uint32_t inst)
     INSTRUCTION *novo;
 
     if ((novo = (INSTRUCTION *)malloc(sizeof(INSTRUCTION))) == NULL)
+	{
+		//Caso esteja compilando para a ferramenta INSTDEBUG, não insere o código 
+		//entre ifndef e endif.
+		#ifndef COMPILING_INSTDEBUG
+		cpuError_setDesc(INSTRUCTION_EALLOC_MSG);
+		#endif
         return INSTRUCTION_EALLOC;
+	}
 
     novo->inst = inst;
 
@@ -33,17 +40,11 @@ INSTRUCTION *inst_new(uint32_t inst)
 
 void inst_free(INSTRUCTION *instruction)
 {
-    if (instruction == NULL)
-        return;
-
     free(instruction);
 }
 
 uint32_t inst_getInst(INSTRUCTION *instruction)
 {
-    if (instruction == NULL)
-        return INSTRUCTION_EGETINST;
-
     return (instruction->inst);
 }
 

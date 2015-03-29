@@ -22,7 +22,7 @@
 #include "../instruction/instruction.h"
 #include "../registerBank/registerBank.h"
 
-void alu_processTypeR(REGISTERBANK *regBank, TYPE_R *inst);
-void alu_processBeqz(REGISTERBANK *regBank, TYPE_ESP_BEQZ *inst);
+void 		alu_processTypeR(REGISTERBANK *regsBank, TYPE_R *inst);
+void 		alu_processBeqz(REGISTERBANK *regsBank, TYPE_ESP_BEQZ *inst);
 
 #endif

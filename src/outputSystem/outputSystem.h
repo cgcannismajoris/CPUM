@@ -27,9 +27,11 @@
 #include "../cpuError.h"
 #include "../registerBank/registerBank.h"
 
-#define OUTPUTSYSTEM_EALLOC		NULL
-#define OUTPUTSYSTEM_EALLOC_MSG	"Falha de alocação de memória para OUTPUTSYSTEM."
+#define OUTPUTSYSTEM_EALLOC			NULL
+#define OUTPUTSYSTEM_EALLOC_MSG		"Falha de alocação de memória para OUTPUTSYSTEM."
 
+#define OUTPUTSYSTEM_EFOPEN			NULL
+#define OUTPUTSYSTEM_EFOPEN_MSG 	"Falha ao abrir arquivo de saída da computação."
 
 typedef struct _outputSystem
 {
@@ -42,4 +44,5 @@ OUTPUTSYSTEM *		output_new(const char *filename);
 void 				output_free(OUTPUTSYSTEM *output);
 
 void 				output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem);
+
 #endif

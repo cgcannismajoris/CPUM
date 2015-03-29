@@ -18,7 +18,7 @@
 
 #include "control.h"
 
-int control_process(REGISTERBANK  *regBank, uint32_t inst)
+int control_process(REGISTERBANK  *regsBank, uint32_t inst)
 {
  
 	TYPE_R tmp;
@@ -28,7 +28,7 @@ int control_process(REGISTERBANK  *regBank, uint32_t inst)
 	//Se for uma instrução do tipo R.
 	if(tmp.opcode >= 1 && tmp.opcode <= 22)
 	{
-		alu_processTypeR(regBank, &tmp);
+		alu_processTypeR(regsBank, &tmp);
 	}
 
 	//Caso forem acrescentadas novas instruções futuras adicionar trechos de
@@ -41,7 +41,7 @@ int control_process(REGISTERBANK  *regBank, uint32_t inst)
 		
 		INSTRUCTION_SETINST(beqz, inst);
 
-		alu_processBeqz(regBank, &beqz);
+		alu_processBeqz(regsBank, &beqz);
 	}
 	
 	//Tipo não reconhecido.

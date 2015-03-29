@@ -33,7 +33,6 @@ REGISTERBANK *registerBank_new(uint64_t length)
             == NULL)
     {
         free(regsBank);
-
         cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
         return REGISTERBANK_EALLOC;
     }
@@ -83,5 +82,5 @@ uint64_t registerBank_getPc(REGISTERBANK *regsBank)
 
 uint64_t registerBank_getLength(REGISTERBANK *regsBank)
 {
-	return (regsBank->length);
+	return regsBank->length;
 }

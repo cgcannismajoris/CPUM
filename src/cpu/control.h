@@ -25,6 +25,6 @@
 #define CONTROL_EUKNOWINSTRUCTION		-1
 #define CONTROL_EUKNOWINSTRUCTION_MSG 	"Instrução não reconhecida."
 
-int control_process(REGISTERBANK *regBank, uint32_t inst);
+int control_process(REGISTERBANK *regsBank, uint32_t inst);
 
 #endif

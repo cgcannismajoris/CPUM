@@ -44,12 +44,12 @@ typedef struct _cpu
 } CPU;
 
 
-CPU *   cpu_new(uint64_t regQtd, uint32_t ticks);
+CPU *   	cpu_new(uint64_t regQtd, uint32_t ticks);
 
-void 	cpu_free(CPU *cpu);
+void 		cpu_free(CPU *cpu);
 
-void    cpu_start(CPU *cpu, const char *input, const char *output);
+int     	cpu_start(CPU *cpu, const char *input, const char *output);
 
-int     cpu_clock(CPU *cpu);
+int     	cpu_clock(CPU *cpu);
 
 #endif

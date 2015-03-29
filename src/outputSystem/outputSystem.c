@@ -30,8 +30,8 @@ OUTPUTSYSTEM *output_new(const char *filename)
 
 	if((novo->file = fopen(filename, "w+")) == NULL)
 	{
-		cpuError_setDesc(OUTPUTSYSTEM_EALLOC_MSG);
-		return OUTPUTSYSTEM_EALLOC;
+		cpuError_setDesc(OUTPUTSYSTEM_EFOPEN_MSG);
+		return OUTPUTSYSTEM_EFOPEN;
 	}
 
 	return (novo);

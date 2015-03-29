@@ -48,24 +48,29 @@ void cpu_free(CPU *cpu)
 	free(cpu);
 }
 
-void cpu_start(CPU *cpu, const char *input, const char *output)
+int cpu_start(CPU *cpu, const char *input, const char *output)
 {
 	
+	int status;	
+
 	if((cpu->input = input_new()) == INPUTSYSTEM_EALLOC)
-		return;
+		return CPU_ERROR;
 
 	if((cpu->output = output_new(output)) == OUTPUTSYSTEM_EALLOC)
-		return;
+		return CPU_ERROR;
 
-	input_load(cpu->input, input);	
+	if(input_load(cpu->input, input) != 0)
+		return CPU_ERROR;
 
-	while(cpu_clock(cpu) == CPU_FINISH)
+	while((status = cpu_clock(cpu)) == CPU_FINISH)
 	{
 		output_writeTrace(cpu->output, cpu->regsBank);
 	}
 
 	input_free(cpu->input);
 	output_free(cpu->output);
+
+	return (status);
 }
 
 int cpu_clock(CPU *cpu)

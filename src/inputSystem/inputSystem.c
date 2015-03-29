@@ -68,8 +68,8 @@ int input_load(INPUTSYSTEM *input, const char *filename)
 
     if ((input->mem = instMemory_new(length)) == INSTMEMORY_EALLOC)
     {
-        cpuError_setDesc(INPUTSYSTEM_ELOAD_MSG);
-        return INPUTSYSTEM_ELOAD;
+		fclose(fbin);
+		return INPUTSYSTEM_ELOAD;
     }
 
     input->mem->length = length;
