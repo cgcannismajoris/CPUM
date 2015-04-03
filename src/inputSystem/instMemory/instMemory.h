@@ -24,6 +24,7 @@
 #include <stdint.h>
 
 #include "../../cpuError.h"
+#include "../../instruction/instruction.h"
 
 #define INSTMEMORY_EALLOC        NULL
 #define INSTMEMORY_EALLOC_MSG    "Falha ao criar memória de instruções."
@@ -31,7 +32,7 @@
 
 typedef struct _instMemory
 {
-    uint32_t *  mem;
+    uint8_t *   mem;
     uint64_t    length;
 } INSTMEMORY;
 

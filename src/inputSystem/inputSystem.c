@@ -41,19 +41,19 @@ void input_free(INPUTSYSTEM *input)
     free(input);
 }
 
-uint32_t input_getInst(INPUTSYSTEM *input, uint64_t address)
+uint8_t *input_getInst(INPUTSYSTEM *input, uint64_t address)
 {
-	
     if (address < input->mem->length)
-        return input->mem->mem[address];
+        return (input->mem->mem + (address * INSTRUCTION_INSTLENGTH_BYTES));
 
-    return 0;
+    return NULL;
 }
 
-int input_load(INPUTSYSTEM *input, const char *filename)
+long int input_load(INPUTSYSTEM *input, const char *filename)
 {
     FILE *fbin;      /* ptr. arquivo binário */
     uint64_t length;
+	uint32_t qtdReg;
 
     if ((fbin = fopen(filename, "rb+")) == NULL)
     {
@@ -62,21 +62,22 @@ int input_load(INPUTSYSTEM *input, const char *filename)
     }
 
     fseek(fbin, 0, SEEK_END);
-    length = ftell(fbin) / sizeof(uint32_t);
-
-    rewind(fbin); /* retorne ao início do arquivo */
-
+    length = (ftell(fbin) - sizeof(uint32_t)) / INSTRUCTION_INSTLENGTH_BYTES;
+    
+	rewind(fbin); /* retorne ao início do arquivo */
+ 
     if ((input->mem = instMemory_new(length)) == INSTMEMORY_EALLOC)
     {
 		fclose(fbin);
 		return INPUTSYSTEM_ELOAD;
     }
 
-    input->mem->length = length;
-
-    /* Carregar o arquivo integralmente para a memória de instruções */
-    fread(input->mem->mem, sizeof(uint32_t), length, fbin);
+	/* Carrega a quantidade de registradores */	
+	fread(&qtdReg, sizeof(uint32_t), 1, fbin);	
+    
+	/* Carregar o arquivo integralmente para a memória de instruções */
+    fread(input->mem->mem, INSTRUCTION_INSTLENGTH_BYTES, length, fbin);
 
     fclose(fbin);
-    return 0;
+    return qtdReg;
 }

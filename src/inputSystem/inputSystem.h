@@ -27,7 +27,7 @@
 
 #include "../cpuError.h"
 #include "instMemory/instMemory.h"      /* incluir o TAD INSTMEMORY. */
-
+#include "../instruction/instruction.h"
 
 #define INPUTSYSTEM_EALLOC        NULL
 #define INPUTSYSTEM_EALLOC_MSG    "Falha ao alocar memória para INPUTSYSTEM."
@@ -49,8 +49,8 @@ INPUTSYSTEM *   input_new();
 
 void            input_free(INPUTSYSTEM *input);
 
-uint32_t        input_getInst(INPUTSYSTEM *input, uint64_t address);
+uint8_t *       input_getInst(INPUTSYSTEM *input, uint64_t address);
 
-int             input_load(INPUTSYSTEM *input, const char *filename);
+long int        input_load(INPUTSYSTEM *input, const char *filename);
 
 #endif

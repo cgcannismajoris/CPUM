@@ -44,7 +44,7 @@ typedef struct _cpu
 } CPU;
 
 
-CPU *   	cpu_new(uint64_t regQtd, uint32_t ticks);
+CPU *   	cpu_new(uint32_t ticks);
 
 void 		cpu_free(CPU *cpu);
 

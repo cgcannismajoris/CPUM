@@ -18,13 +18,12 @@
 
 #include "control.h"
 
-int control_process(REGISTERBANK  *regsBank, uint32_t inst)
+int control_process(REGISTERBANK  *regsBank, uint8_t *inst)
 {
- 
 	TYPE_R tmp;
 
-	INSTRUCTION_SETINST(tmp, inst);
-
+	INSTRUCTION_SETINST(tmp, (*inst));
+	
 	//Se for uma instrução do tipo R.
 	if(tmp.opcode >= 1 && tmp.opcode <= 22)
 	{
@@ -39,8 +38,8 @@ int control_process(REGISTERBANK  *regsBank, uint32_t inst)
 	{
 		TYPE_ESP_BEQZ beqz;
 		
-		INSTRUCTION_SETINST(beqz, inst);
-
+		INSTRUCTION_SETINST(beqz, (*inst));
+		
 		alu_processBeqz(regsBank, &beqz);
 	}
 	

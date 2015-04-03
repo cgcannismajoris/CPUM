@@ -21,8 +21,6 @@
 #include "inputSystem/inputSystem.h"
 #include "instruction/instruction.h"
 
-#define QTD_REG 	32
-
 int main(int argc, char **argv)
 {
 	
@@ -40,7 +38,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-	if((cpu = cpu_new(QTD_REG, 1)) == CPU_EALLOC)
+	if((cpu = cpu_new(1)) == CPU_EALLOC)
 	{
 		fprintf(stderr, "CPU: %s\n", cpuError_getDesc());
 		return EXIT_FAILURE;

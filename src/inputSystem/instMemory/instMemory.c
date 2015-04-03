@@ -29,7 +29,7 @@ INSTMEMORY *instMemory_new(uint64_t length)
         return INSTMEMORY_EALLOC;
     }
 
-    if ((novo->mem = (uint32_t *)malloc(sizeof(uint32_t) * length)) == NULL)
+    if ((novo->mem = (uint8_t *)malloc(length * INSTRUCTION_INSTLENGTH_BYTES)) == NULL)
     {
         free(novo);
         cpuError_setDesc(INSTMEMORY_EALLOC_MSG);
@@ -50,7 +50,7 @@ void instMemory_free(INSTMEMORY *instMem)
 uint32_t instMemory_get(INSTMEMORY *instMem, uint64_t address)
 {
     if (address < instMem->length)
-        return instMem->mem[address];
+        return instMem->mem[address * INSTRUCTION_INSTLENGTH_BYTES];
 
     return 0;
 }

@@ -18,7 +18,7 @@
 
 #include "cpu.h"
 
-CPU *cpu_new(uint64_t regQtd, uint32_t ticks)
+CPU *cpu_new(uint32_t ticks)
 {
     CPU *nova;
 
@@ -28,15 +28,7 @@ CPU *cpu_new(uint64_t regQtd, uint32_t ticks)
         return CPU_EALLOC;
     }
 
-    /* Criar banco de registradores. */
-    if ((nova->regsBank = registerBank_new(regQtd)) == REGISTERBANK_EALLOC)
-    {
-        free(nova);
-
-        cpuError_setDesc(CPUERROR_EALLOC_MSG);
-        return CPU_EALLOC;
-    }
-	
+	nova->regsBank = NULL;	
 	nova->ticksPerSecond = ticks;
 
     return nova;
@@ -51,7 +43,9 @@ void cpu_free(CPU *cpu)
 int cpu_start(CPU *cpu, const char *input, const char *output)
 {
 	
-	int status;	
+	int status;		
+
+	uint32_t regQtd;
 
 	if((cpu->input = input_new()) == INPUTSYSTEM_EALLOC)
 		return CPU_ERROR;
@@ -59,9 +53,12 @@ int cpu_start(CPU *cpu, const char *input, const char *output)
 	if((cpu->output = output_new(output)) == OUTPUTSYSTEM_EALLOC)
 		return CPU_ERROR;
 
-	if(input_load(cpu->input, input) != 0)
+	if((regQtd = input_load(cpu->input, input)) <= 0)
 		return CPU_ERROR;
 
+	if((cpu->regsBank = registerBank_new(regQtd)) == REGISTERBANK_EALLOC)
+		return CPU_ERROR;
+		
 	while((status = cpu_clock(cpu)) == CPU_FINISH)
 	{
 		output_writeTrace(cpu->output, cpu->regsBank);
@@ -75,7 +72,7 @@ int cpu_start(CPU *cpu, const char *input, const char *output)
 
 int cpu_clock(CPU *cpu)
 {
-	uint32_t inst;
+	uint8_t *inst;
 	
 	if((inst = input_getInst(cpu->input, registerBank_getPc(cpu->regsBank))) == 0)
 	{

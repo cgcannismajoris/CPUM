@@ -20,23 +20,22 @@
 
 void alu_processTypeR(REGISTERBANK *regsBank, TYPE_R *inst)
 {
-	
 	uint32_t tmpResult;
 
 	switch(inst->opcode)
 	{	
 		//Soma com imediate
 		case 1:
-			tmpResult = registerBank_getRegister(regsBank, inst->orig1);
-			tmpResult += inst->orig2;
-			registerBank_setRegister(regsBank, inst->dest, tmpResult);
+			tmpResult = registerBank_getRegister(regsBank, inst->reg);
+			tmpResult++;
+			registerBank_setRegister(regsBank, inst->reg, tmpResult);
 			break;
 		
 		//Subtração com imediate
 		case 2:
-			tmpResult = registerBank_getRegister(regsBank, inst->orig1);
-			tmpResult -= inst->orig2;
-			registerBank_setRegister(regsBank, inst->dest, tmpResult);
+			tmpResult = registerBank_getRegister(regsBank, inst->reg);
+			tmpResult--;
+			registerBank_setRegister(regsBank, inst->reg, tmpResult);
 			break;
 	}
 
@@ -53,5 +52,4 @@ void alu_processBeqz(REGISTERBANK *regsBank, TYPE_ESP_BEQZ *inst)
 	{
 		registerBank_pcAdd(regsBank, inst->address_f);
 	}
-
 }

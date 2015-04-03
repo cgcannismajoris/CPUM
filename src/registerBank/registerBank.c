@@ -29,8 +29,7 @@ REGISTERBANK *registerBank_new(uint64_t length)
         return REGISTERBANK_EALLOC;
     }
 
-    if ((regsBank->registers = (uint32_t *)malloc(sizeof(uint32_t) * length))
-            == NULL)
+    if ((regsBank->registers = (uint32_t *)malloc(sizeof(uint32_t) * length)) == NULL)
     {
         free(regsBank);
         cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
@@ -70,7 +69,7 @@ void registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
         regsBank->registers[address] = value;
 }
 
-void registerBank_pcAdd(REGISTERBANK *regsBank, short int value)
+void registerBank_pcAdd(REGISTERBANK *regsBank, signed int value)
 {
 	regsBank->pc += value;
 }

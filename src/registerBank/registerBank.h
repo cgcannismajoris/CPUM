@@ -53,7 +53,7 @@ uint32_t        registerBank_getRegister(REGISTERBANK *regsBank, uint64_t addres
 void            registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
 	                                         uint32_t value);
 
-void 			registerBank_pcAdd(REGISTERBANK *regsBank, short int value);
+void 			registerBank_pcAdd(REGISTERBANK *regsBank, signed int value);
 
 uint64_t		registerBank_getPc(REGISTERBANK *regsBank);
 
