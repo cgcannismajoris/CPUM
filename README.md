@@ -43,3 +43,7 @@ Através de um terminal de comando do Linux, observa-se o formato de entrada aba
 	  <NOME_DO_ARQUIVO_DE_SAIDA>   : é o arquivo de texto de saída.
 
 Se a execução for bem-sucedida, então será gerado um arquivo de texto contendo a função computada.
+
+##Licença
+O CPUM é amparado pela licença [GNU General Public License V3.0](https://www.gnu.org/licenses/gpl.txt).
+

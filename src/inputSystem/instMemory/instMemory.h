@@ -1,20 +1,24 @@
 /*
- * ===========================================================================
- *
- * Nome do Arquivo:  dataMemory.h
- *
- *       Descricao:  TAD para menipulação da memória de instruções da 
+ * Nome do Arquivo:  instMemory.h
+ *       Descricao:  TAD para manipulação da memória de instruções da
  *       			 máquina.
  *
- *          Versao:  1.0
- *       Criado em:  20/03/2015 19:25:23
- *         Revisao:  none
- *      Compilador:  gcc
+ * Exported functions from instMemory.c.
+ * Copyright (C) 2015  Cristian Costa Mello and Gustavo Freitas de Amorim
  *
- *           Autor:  Cristian Costa Mello, Gustavo Freitas de Amorim 
- *     Organizacao:  VY Cannis Majoris
+ * This is part of CPUM
+ * CPUM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * ===========================================================================
+ * CPUM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef INSTMEMORY_H
