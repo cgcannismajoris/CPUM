@@ -19,8 +19,9 @@
 #include "registerBank.h"
 
 
-REGISTERBANK *registerBank_new(uint64_t length)
+REGISTERBANK *registerBank_new(uint8_t *mem, uint64_t length)
 {
+ 	
     REGISTERBANK *regsBank;
 
     if ((regsBank = (REGISTERBANK *)malloc(sizeof(REGISTERBANK))) == NULL)
@@ -28,17 +29,17 @@ REGISTERBANK *registerBank_new(uint64_t length)
         cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
         return REGISTERBANK_EALLOC;
     }
-
-    if ((regsBank->registers = (uint32_t *)malloc(sizeof(uint32_t) * length)) == NULL)
+	
+    if ((regsBank->registers = (int8_t *)malloc(sizeof(int8_t) * length)) == NULL)
     {
         free(regsBank);
         cpuError_setDesc(REGISTERBANK_EALLOC_MSG);
         return REGISTERBANK_EALLOC;
     }
 
-	memset(regsBank->registers, 0, sizeof(uint32_t) * length);
+	memcpy(regsBank->registers, mem, sizeof(uint8_t) * length);
 
-    regsBank->length = length;
+    regsBank->length = length / (sizeof(uint8_t) + sizeof(uint32_t));
 	
 	*((uint32_t*)&regsBank->zero) = 0;
 	*((uint32_t*)&regsBank->um) = 1;
@@ -54,19 +55,30 @@ void registerBank_free(REGISTERBANK *regsBank)
     free(regsBank);
 }
 
-uint32_t registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address)
+int32_t registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address)
 {
     if (address < regsBank->length)
-        return regsBank->registers[address];
-
+	{
+		//Calcula a posição do registrador desejado
+		address = (address * (sizeof(uint8_t) + sizeof(uint32_t))) + sizeof(uint8_t);
+        
+		//Retorna o valor armazenado
+		return *((int*)(regsBank->registers + address));
+	}
     return 0;
 }
 
 void registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
-                              uint32_t value)
+                              int32_t value)
 {
     if (address < regsBank->length)
-        regsBank->registers[address] = value;
+	{
+		//Calcula a posição do registrador desejado
+		address = (address * (sizeof(uint8_t) + sizeof(uint32_t))) + sizeof(uint8_t);
+		
+		//Seta o valor
+        *((int*)(regsBank->registers + address)) = value;
+	}
 }
 
 void registerBank_pcAdd(REGISTERBANK *regsBank, signed int value)
@@ -83,3 +95,4 @@ uint64_t registerBank_getLength(REGISTERBANK *regsBank)
 {
 	return regsBank->length;
 }
+

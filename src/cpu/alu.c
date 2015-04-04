@@ -53,3 +53,4 @@ void alu_processBeqz(REGISTERBANK *regsBank, TYPE_ESP_BEQZ *inst)
 		registerBank_pcAdd(regsBank, inst->address_f);
 	}
 }
+

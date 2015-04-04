@@ -49,35 +49,61 @@ uint8_t *input_getInst(INPUTSYSTEM *input, uint64_t address)
     return NULL;
 }
 
-long int input_load(INPUTSYSTEM *input, const char *filename)
+uint8_t *input_load(INPUTSYSTEM *input, const char *filename)
 {
     FILE *fbin;      /* ptr. arquivo binário */
     uint64_t length;
-	uint32_t qtdReg;
+	
+	uint32_t headerLength; 
+	uint8_t  *header;
 
-    if ((fbin = fopen(filename, "rb+")) == NULL)
+    if ((fbin = fopen(filename, "rb")) == NULL)
     {
         cpuError_setDesc(INPUTSYSTEM_EFOPEN_MSG);
-        return INPUTSYSTEM_EFOPEN;
+        return INPUTSYSTEM_EALLOC;
     }
 
+	/* Carrega o cabeçalho */
+	//Carrega a quantidade de registradores e calcula o tamanho total
+	fread(&headerLength, sizeof(uint32_t), 1, fbin);
+	rewind(fbin);
+
+	headerLength = sizeof(uint32_t) + 
+						(headerLength * (sizeof(uint8_t) + sizeof(int)));
+
+	//Aloca a memória necessária para carregar o restante do cabeçalho
+	if((header = (uint8_t*)malloc(headerLength)) == NULL)
+	{
+		cpuError_setDesc(INPUTSYSTEM_EALLOC_MSG);
+		return INPUTSYSTEM_EALLOC;
+	}
+	
+	//Carrega
+	fread(header, headerLength, 1, fbin);
+
+	/* Carrega as instruções */
+	rewind(fbin);
     fseek(fbin, 0, SEEK_END);
-    length = (ftell(fbin) - sizeof(uint32_t)) / INSTRUCTION_INSTLENGTH_BYTES;
-    
+
+	//Calcula o tamanho necessário para armazenar as instruções subtraindo o 
+	//tamanho do header
+    length = (ftell(fbin) - headerLength) / INSTRUCTION_INSTLENGTH_BYTES; 
+
+	//Volta para o final do cabeçalho
 	rewind(fbin); /* retorne ao início do arquivo */
- 
+	fseek(fbin, headerLength, SEEK_SET);	
+	
+	//Aloca a memória necessária para o carregamento
     if ((input->mem = instMemory_new(length)) == INSTMEMORY_EALLOC)
     {
 		fclose(fbin);
-		return INPUTSYSTEM_ELOAD;
+		return INPUTSYSTEM_EALLOC;
     }
 
-	/* Carrega a quantidade de registradores */	
-	fread(&qtdReg, sizeof(uint32_t), 1, fbin);	
-    
 	/* Carregar o arquivo integralmente para a memória de instruções */
     fread(input->mem->mem, INSTRUCTION_INSTLENGTH_BYTES, length, fbin);
 
     fclose(fbin);
-    return qtdReg;
+    return header;
 }
+

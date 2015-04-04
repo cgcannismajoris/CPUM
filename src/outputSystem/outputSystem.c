@@ -56,3 +56,4 @@ void output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem)
 
 	fprintf(output->file, "))\n");
 }
+

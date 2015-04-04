@@ -43,27 +43,36 @@ void cpu_free(CPU *cpu)
 int cpu_start(CPU *cpu, const char *input, const char *output)
 {
 	
-	int status;		
+	int status;			
+	uint8_t *header;
+	uint64_t length;
 
-	uint32_t regQtd;
-
+	//Inicia o sistema de input
 	if((cpu->input = input_new()) == INPUTSYSTEM_EALLOC)
 		return CPU_ERROR;
 
+	//Inicia o sistema de output
 	if((cpu->output = output_new(output)) == OUTPUTSYSTEM_EALLOC)
 		return CPU_ERROR;
-
-	if((regQtd = input_load(cpu->input, input)) <= 0)
+	
+	//Carrega o arquivo de instruções e obtém o header
+	if((header = input_load(cpu->input, input)) == NULL)
 		return CPU_ERROR;
-
-	if((cpu->regsBank = registerBank_new(regQtd)) == REGISTERBANK_EALLOC)
+ 
+	//Calcula o tamanho da memória de registradores	
+	length = (*((uint32_t*)header) * (sizeof(uint8_t) + sizeof(uint32_t)));
+	
+	//Instancia o banco de registradores utilizando o header
+	if((cpu->regsBank = registerBank_new(header + sizeof(uint32_t), length)) == 
+					REGISTERBANK_EALLOC)
 		return CPU_ERROR;
-		
-	while((status = cpu_clock(cpu)) == CPU_FINISH)
-	{
+	
+	//Processa o programa
+	do{
 		output_writeTrace(cpu->output, cpu->regsBank);
-	}
-
+	}while((status = cpu_clock(cpu)) == CPU_FINISH);
+	
+	//Finalisa os subsistemas
 	input_free(cpu->input);
 	output_free(cpu->output);
 

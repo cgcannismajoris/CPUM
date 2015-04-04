@@ -1,6 +1,0 @@
-r1: faca add a va_para r2
-r2: faca add a va_para r3
-r3: faca add a va_para r4
-r4: faca beqz a r13 r5
-r5: faca sub a va_para r6
-r6: faca add b va_para r4

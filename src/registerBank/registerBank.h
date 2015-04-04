@@ -33,7 +33,7 @@
 typedef struct _registerBank
 {
 	//Registradores de propósito geral
-    uint32_t *  	registers;
+    int8_t *  		registers;
 
 	//Registradores de propósito específico
 	const uint32_t 	zero;
@@ -44,14 +44,14 @@ typedef struct _registerBank
 } REGISTERBANK;
 
 
-REGISTERBANK *  registerBank_new(uint64_t length);
+REGISTERBANK *	registerBank_new(uint8_t *mem, uint64_t length);
 
 void            registerBank_free(REGISTERBANK *regsBank);
 
-uint32_t        registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address);
+int32_t         registerBank_getRegister(REGISTERBANK *regsBank, uint64_t address);
 
 void            registerBank_setRegister(REGISTERBANK *regsBank, uint64_t address,
-	                                         uint32_t value);
+	                                         int32_t value);
 
 void 			registerBank_pcAdd(REGISTERBANK *regsBank, signed int value);
 

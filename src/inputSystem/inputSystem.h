@@ -51,6 +51,6 @@ void            input_free(INPUTSYSTEM *input);
 
 uint8_t *       input_getInst(INPUTSYSTEM *input, uint64_t address);
 
-long int        input_load(INPUTSYSTEM *input, const char *filename);
+uint8_t *		input_load(INPUTSYSTEM *input, const char *filename);
 
 #endif

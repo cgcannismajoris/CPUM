@@ -34,7 +34,6 @@ INSTRUCTION *inst_new(uint8_t *inst)
 	}
 
 	memcpy(novo->inst, inst, INSTRUCTION_INSTLENGTH);
-//    novo->inst = inst;
 
     return novo;
 }
@@ -51,6 +50,5 @@ uint8_t *inst_getInst(INSTRUCTION *instruction)
 
 void inst_setInst(INSTRUCTION *instruction, uint8_t *inst)
 {
-//    instruction->inst = inst;
 	memcpy(instruction->inst, inst, INSTRUCTION_INSTLENGTH);
 }
