@@ -21,6 +21,7 @@ A seguir, está disposto a organização básica do projeto CPUM.
 		/data				: arquivos de entrada/saída e relativos ao projeto
 		/src				: pasta de códigos-fonte
 		.gitignore			: arquivo gitignore
+		COPYING3			: arquivo de licença
 		CPUM.pro    		: árvore do projeto (Qt Creator)
 		CPUM.pro.user		: estruturação do projeto (Qt Creator)
 		Makefile			: arquivo Makefile
