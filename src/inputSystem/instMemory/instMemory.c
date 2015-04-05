@@ -58,3 +58,4 @@ uint32_t instMemory_get(INSTMEMORY *instMem, uint64_t address)
 
     return 0;
 }
+

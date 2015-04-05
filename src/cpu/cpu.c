@@ -99,3 +99,4 @@ int cpu_clock(CPU *cpu)
 
 	return (CPU_FINISH);
 }
+

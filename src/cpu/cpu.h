@@ -41,19 +41,66 @@
 
 typedef struct _cpu
 {
-    uint32_t        ticksPerSecond;
-    REGISTERBANK *  regsBank;       /* banco de registradores */
-	INPUTSYSTEM *	input;
-	OUTPUTSYSTEM *	output;
+    uint32_t        ticksPerSecond; // quantidade de ticks por segundo 
+    REGISTERBANK *  regsBank;       // banco de registradores
+	INPUTSYSTEM *	input;          // sistema de entrada
+	OUTPUTSYSTEM *	output;         // sistema de saída
 } CPU;
 
 
+/* -> CPU *cpu_new(uint32_t ticks)
+ * 
+ * - DESCRIÇÃO: Instancia uma nova estrutura em memória.
+ *
+ * - PARÂMETROS: 
+ *      -> uint32_t ticks: Quantidade de ticks por segundo.
+ *
+ * - RETORNO: Estrutura do tipo CPU instanciada.
+ *   	-> Se NULL    - Erro na operação.
+ *   	-> Se != NULL - Sucesso na operação.
+ */
 CPU *   	cpu_new(uint32_t ticks);
 
+
+/* -> void cpu_free(CPU *cpu)
+ * 
+ * - DESCRIÇÃO: Destrói uma estrutura existente em memória.
+ *
+ * - PARÂMETROS: 
+ *      -> CPU *cpu: Estrutura a ser destruída.
+ *
+ * - RETORNO: void.
+ */
 void 		cpu_free(CPU *cpu);
 
+
+/* -> int cpu_start(CPU *cpu, const char *input, const char *output)
+ * 
+ * - DESCRIÇÃO: Incializa a CPU, fazendo com que o programa seja processado.
+ *
+ * - PARÂMETROS: 
+ *      -> CPU *cpu: CPU a ser utilizada.
+ *      -> const char *input: Programa a ser processado.
+ *      -> const char *output: Arquivo a receber a função computada.
+ *
+ * - RETORNO: Estado da execução.
+ *      -> Se 0    - Sucesso.
+ *      -> Se != 0 - Erro.
+ */
 int     	cpu_start(CPU *cpu, const char *input, const char *output);
 
+
+/* -> int cpu_clock(CPU *cpu)
+ * 
+ * - DESCRIÇÃO: Realiza um clock na CPU (processa uma única instrução).
+ *
+ * - PARÂMETROS: 
+ *      -> CPU *cpu: CPU a ser utilizada.
+ *
+ * - RETORNO: Estado da operação.
+ *      -> Se 0    - Sucesso.
+ *      -> Se != 0 - Erro.
+ */
 int     	cpu_clock(CPU *cpu);
 
 #endif

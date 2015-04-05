@@ -30,8 +30,9 @@
 int main(int argc, char **argv)
 {
 	CPU *cpu;
-
-    if(argc < 3)
+	
+	//Se apenas invocou o programa, exibe ajuda
+    if(argc == 1)
     {
         fprintf(stdout, "\nCPUM.\n");
         fprintf(stdout, "Copyright (C) 2015  Cristian Costa Mello and \
@@ -47,38 +48,46 @@ int main(int argc, char **argv)
 
         return EXIT_SUCCESS;
     }
-
-    if (argc > 3)
+	
+	//Se a quatidade de argumentos for inválida	
+    if (argc < 3 || argc > 3)
     {
         fprintf(stdout, "Linha de comando inválida. Invoque o programa sem \
                 argumentos para mais informações.\n");
         return EXIT_FAILURE;
     }
-
+	
+	//Instancia o sistema de erros
     if ((cpuError_new(CPUERROR_FAILUREDESCLENGTH)) == NULL)
     {
         fprintf(stderr, "CPU: %s\n", CPUERROR_EALLOC_MSG);
         return EXIT_FAILURE;
     }
 
+	//Instancia uma nova CPU
 	if((cpu = cpu_new(1)) == CPU_EALLOC)
 	{
 		fprintf(stderr, "CPU: %s\n", cpuError_getDesc());
 		return EXIT_FAILURE;
 	}
 
+	//Executa o programa
+	//Se resultar em erro, exibe a mensagem
 	if(cpu_start(cpu, argv[1], argv[2]) == CPU_ERROR)
 	{
 		fprintf(stderr, "CPU: %s\n", cpuError_getDesc());
 		return EXIT_FAILURE;
 	}
+	//Se não, exibe sucesso
 	else
 	{
 		printf("Programa executado com sucesso! =D\n");
 	}
 
+	//Desaloca regiões de memória que não serão mais utilizadas
 	cpu_free(cpu);
     cpuError_free();
-
+	
+	//Retorna sucesso
 	return EXIT_SUCCESS;
 }

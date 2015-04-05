@@ -36,16 +36,49 @@
 #define OUTPUTSYSTEM_EFOPEN			NULL
 #define OUTPUTSYSTEM_EFOPEN_MSG 	"Falha ao abrir arquivo de saída da computação."
 
+
 typedef struct _outputSystem
 {
-	FILE *file;
+	FILE *file; //Arquivo a ser utilizado na saída
 } OUTPUTSYSTEM;
 
 
+/* -> OUTPUTSYSTEM *output_new(const char *filename)
+ * 
+ * - DESCRIÇÃO: Instancia uma nova estrutura em memória.
+ *
+ * - PARÂMETROS: 
+ *      -> const char *filename: Nome do arquivo a ser utilizado na escrita.
+ *
+ * - RETORNO: Estrutura do tipo OUTPUTSYSTEM instanciada.
+ *   	-> Se NULL    - Erro na operação.
+ *   	-> Se != NULL - Sucesso na operação.
+ */
 OUTPUTSYSTEM *		output_new(const char *filename);
 
+
+/* -> void output_free(OUTPUTSYSTEM *output)
+ * 
+ * - DESCRIÇÃO: Destrói uma estrutura existente em memória.
+ *
+ * - PARÂMETROS: 
+ *      -> OUTPUTSYSTEM *output: Estrutura a ser destruída.
+ *
+ * - RETORNO: void.
+ */
 void 				output_free(OUTPUTSYSTEM *output);
 
+
+/* -> void output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem)
+ * 
+ * - DESCRIÇÃO: Grava o atual estado da CPU.
+ *
+ * - PARÂMETROS: 
+ *      -> OUTPUTSYSTEM *output: Estrutura a ser utilizada na operação.
+ *      -> REGISTERBANK *regMem: Memória de registradores a ser gravada.
+ *
+ * - RETORNO: void.
+ */
 void 				output_writeTrace(OUTPUTSYSTEM *output, REGISTERBANK *regMem);
 
 #endif
