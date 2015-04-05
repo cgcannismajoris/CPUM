@@ -36,15 +36,49 @@
 
 typedef struct _instMemory
 {
-    uint8_t *   mem;
-    uint64_t    length;
+    uint8_t *   mem;        /* memória de instruções */
+    uint64_t    length;     /* quantidade de instruções, em bytes */
 } INSTMEMORY;
 
 
+/* -> INSTMEMORY *instMemory_new(uint64_t length)
+ *
+ * - DESCRIÇÃO: Instancia a memória de instruções.
+ *
+ * - PARÂMETROS:
+ *      -> uint64_t length: quantidade de instruções.
+ *
+ * - RETORNO: estado do processamento
+ *   	-> Se NULL    - Erro na operação
+ *   	-> Se != NULL - Sucesso na operação.
+ */
 INSTMEMORY *    instMemory_new(uint64_t length);
 
+
+/* -> void instMemory_free(INSTMEMORY *instMem)
+ *
+ * - DESCRIÇÃO: Libera a memória de instruções.
+ *
+ * - PARÂMETROS:
+ *      -> INSTMEMORY *instMem: memória de instruções.
+ *
+ * - RETORNO: void.
+ */
 void            instMemory_free(INSTMEMORY *instMem);
 
+
+/* -> uint32_t instMemory_get(INSTMEMORY *instMem, uint64_t address)
+ *
+ * - DESCRIÇÃO: Retorna o valor gravado na posição de endereçamento.
+ *
+ * - PARÂMETROS:
+ *      -> INSTMEMORY *instMem: memória de instruções.
+ *      -> uint64_t address: endereço da região de memória requisitada.
+ *
+ * - RETORNO: valor lido da memória.
+ *   	-> Se 0    - Erro na operação
+ *   	-> Se != 0 - Sucesso na operação.
+ */
 uint32_t        instMemory_get(INSTMEMORY *instMem, uint64_t address);
 
 #endif /* INSTMEMORY_H */

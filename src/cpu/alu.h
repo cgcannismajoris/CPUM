@@ -26,7 +26,29 @@
 #include "../instruction/instruction.h"
 #include "../registerBank/registerBank.h"
 
+
+/* -> void alu_processTypeR(REGISTERBANK *regsBank, TYPE_R *inst)
+ *
+ * - DESCRIÇÃO: Processa a instrução do tipo R.
+ *
+ * - PARÂMETROS:
+ *      -> REGISTERBANK *regsBank: Banco de registradores.
+ *      -> TYPE_R *inst: instrução do tipo R.
+ *
+ * - RETORNO: void
+ */
 void 		alu_processTypeR(REGISTERBANK *regsBank, TYPE_R *inst);
+
+/* -> void alu_processBeqz(REGISTERBANK *regsBank, TYPE_ESP_BEQZ *inst)
+ *
+ * - DESCRIÇÃO: Processa a instrução de teste de zero.
+ *
+ * - PARÂMETROS:
+ *      -> REGISTERBANK *regsBank: Banco de registradores.
+ *      -> TYPE_ESP_BEQZ *inst: instrução beqz.
+ *
+ * - RETORNO: void
+ */
 void 		alu_processBeqz(REGISTERBANK *regsBank, TYPE_ESP_BEQZ *inst);
 
 #endif

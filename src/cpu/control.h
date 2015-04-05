@@ -30,6 +30,18 @@
 #define CONTROL_EUKNOWINSTRUCTION_MSG 	"Instrução não reconhecida."
 
 
-int control_process(REGISTERBANK *regsBank, uint8_t *inst);
+/* -> int control_process(REGISTERBANK *regsBank, uint8_t *inst)
+ *
+ * - DESCRIÇÃO: decodifica a instrução e ordena a ALU processar.
+ *
+ * - PARÂMETROS:
+ *      -> REGISTERBANK *regsBank: Banco de registradores.
+ *      -> uint8_t *inst: instrução.
+ *
+ * - RETORNO: estado do processamento
+ *   	-> Se 0    - Sucesso na operação
+ *   	-> Se != 0 - Erro na operação.
+ */
+int         control_process(REGISTERBANK *regsBank, uint8_t *inst);
 
 #endif

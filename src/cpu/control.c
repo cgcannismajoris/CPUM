@@ -52,4 +52,6 @@ int control_process(REGISTERBANK  *regsBank, uint8_t *inst)
 		cpuError_setDesc(CONTROL_EUKNOWINSTRUCTION_MSG);
 		return CONTROL_EUKNOWINSTRUCTION;
 	}
+
+    return 0;
 }
