@@ -24,6 +24,7 @@ A seguir, está disposto a organização básica do projeto CPUM.
 		COPYING3			: arquivo de licença
 		CPUM.pro    		: árvore do projeto (Qt Creator)
 		CPUM.pro.user		: estruturação do projeto (Qt Creator)
+		Diagrama - CPU.png              : diagrama de classes (adaptado) do projeto
 		Makefile			: arquivo Makefile
 		README.md			: arquivo LEIA-ME
 
@@ -44,6 +45,12 @@ Através de um terminal de comando do Linux, observa-se o formato de entrada aba
 	  <NOME_DO_ARQUIVO_DE_SAIDA>   : é o arquivo de texto de saída.
 
 Se a execução for bem-sucedida, então será gerado um arquivo de texto contendo a função computada.
+
+##Diagrama do Projeto
+Abaixo é mostrado o diagrama de classes (adaptado) do projeto.
+
+![alt text][Diagrama]
+[Diagrama]:https://raw.githubusercontent.com/cgcannismajoris/CPUM/alternative/Diagrama%20-%20CPU.png "Diagrama"
 
 ##Licença
 O CPUM é amparado pela licença [GNU General Public License V3.0](https://www.gnu.org/licenses/gpl.txt).
